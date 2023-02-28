@@ -17,12 +17,15 @@ public class NioTcpClientExample {
         int totalSent = 0;
 
         try (SocketChannel socketChannel = SocketChannel.open()) {
+
+            System.out.println( socketChannel.socket().getSendBufferSize() + " " +  socketChannel.socket().getReceiveBufferSize());
+            //socketChannel.socket().setSendBufferSize(socketChannel.socket().getSendBufferSize());
             // Connect to the server
             socketChannel.connect(new InetSocketAddress(host, port));
 
-            Path filePath = Paths.get("Lecture 10.5 - Transport Protocols and the End-to-End argument.pdf");
+            Path filePath = Paths.get("C:\\Users\\Quim\\Documents\\danielJoao\\THESIS_PROJECT\\Die.Hart.The.Movie.2023.720p.WEBRip.x264.AAC-[YTS.MX].mp4");
             FileChannel channel = FileChannel.open(filePath, StandardOpenOption.READ);
-            int bufferSize = 8192; // 8KB buffer size
+            int bufferSize = socketChannel.socket().getSendBufferSize()*3; // 8KB buffer size
 
             ByteBuffer buffer = ByteBuffer.allocate(bufferSize);
             int read = 0;

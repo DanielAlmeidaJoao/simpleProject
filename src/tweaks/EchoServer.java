@@ -21,6 +21,7 @@ public class EchoServer {
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server started on port " + port);
+            System.out.println( serverSocket.getReceiveBufferSize() );
             Socket clientSocket = serverSocket.accept();
             System.out.println("Client connected: " + clientSocket.getInetAddress().getHostAddress());
 
